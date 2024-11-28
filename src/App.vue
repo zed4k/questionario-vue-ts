@@ -1,84 +1,134 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+  import { ref } from 'vue';
+
+  const drawer = ref(true);
+  const theme = ref('light');
+
+  const itemsMenu = [
+    {
+      title: 'Questionário',
+      value: 'questionario',
+      active: true,
+      icon: 'mdi-file',
+      subitens: [
+        {
+          title: 'Incluir questionário',
+          icon: 'mdi-plus',
+          routeName: 'IncluirQuestionario',
+        },
+        {
+          title: 'Foo 2',
+          value: 'foo2',
+          icon: 'mdi-file-question',
+        },
+      ],
+    },
+    {
+      title: 'Avaliação',
+      value: 'avaliacao',
+      active: false,
+      icon: 'mdi-file-question',
+    },
+  ];
 </script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <v-app :theme="theme">
+    <v-app-bar
+      color="primary"
+      prominent
+    >
+      <v-app-bar-nav-icon
+        variant="text"
+        @click.stop="drawer = !drawer"
+      />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <v-toolbar-title>Questionário</v-toolbar-title>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+      <v-spacer />
 
-  <RouterView />
+      <template v-if="$vuetify.display.mdAndUp">
+        <v-btn
+          icon="mdi-magnify"
+          variant="text"
+        />
+
+        <v-btn
+          icon="mdi-filter"
+          variant="text"
+        />
+      </template>
+
+      <v-btn
+        icon="mdi-dots-vertical"
+        variant="text"
+      />
+    </v-app-bar>
+
+    <v-navigation-drawer v-model="drawer">
+      <v-list>
+        <v-list-item
+          prepend-icon="mdi-home"
+          title="Home"
+          :to="{ name: 'home' }"
+        />
+
+        <!-- <span
+            v-for="item in itemsMenu"
+            :key="item.title"
+          >
+            <v-list-item
+              v-if="!item.subitens"
+              :prepend-icon="item.icon"
+              :title="item.title"
+            />
+
+            <v-list-group
+              v-if="item.subitens"
+              :value="item.title"
+            >
+              <template #activator="{ props }">
+                <v-list-item
+                  v-bind="props"
+                  :prepend-icon="item.icon"
+                  :title="item.title"
+                />
+
+                <span
+                  v-for="subitem in item.subitens"
+                  :key="subitem.title"
+                >
+                  <v-list-item
+                    :prepend-icon="subitem.icon"
+                    :title="subitem.title"
+                  />
+                </span>
+              </template>
+            </v-list-group>
+          </span> -->
+
+        <v-list-group value="Questionário">
+          <template #activator="{ props }">
+            <v-list-item
+              v-bind="props"
+              prepend-icon="mdi-file"
+              title="Questionário"
+            />
+          </template>
+          <v-list-item
+            title="Incluir questionário"
+            :to="{ name: 'IncluirQuestionario' }"
+          />
+        </v-list-group>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-main>
+      <!-- <v-card-text>
+          <h1>Questionário</h1>
+        </v-card-text> -->
+      <v-container>
+        <router-view />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
