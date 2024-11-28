@@ -20,7 +20,10 @@ export const useQuestionarioStore = defineStore('questionario', {
   },
   actions: {
     fetchQuestionario(id: number) {
-      http.get<IQuestionario>(`/${id}`).then((response) => {
+      const url = `${this.URL_API}/${id}`;
+      console.log('------------------------------url', url);
+
+      http.get<IQuestionario>(url).then((response) => {
         console.log(response);
         this.envelope = response.data as unknown as IEnvelope;
         this.questionario = this.envelope?.objeto as IQuestionario;

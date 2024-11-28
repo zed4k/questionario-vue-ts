@@ -95,9 +95,9 @@
       v-model="snackbar"
       vertical
     >
-      <div class="text-subtitle-1 pb-2">{{ msg }}</div>
+      <div class="text-subtitle-1 pb-2">Atenção</div>
 
-      <p>This is a longer paragraph explaining something</p>
+      <p>{{ msg }}</p>
 
       <template #actions>
         <v-btn

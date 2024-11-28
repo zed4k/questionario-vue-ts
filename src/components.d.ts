@@ -13,5 +13,6 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Sidebar: typeof import('./components/main/Sidebar.vue')['default']
+    ZField: typeof import('./components/ZField.vue')['default']
   }
 }

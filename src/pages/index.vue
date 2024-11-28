@@ -1,5 +1,5 @@
 <template>
-  <HelloWorld />
+  <h1>App Questionários</h1>
 </template>
 
 <script lang="ts" setup>
